@@ -12,7 +12,7 @@ body {
 ul {
   padding: 0;
   margin: 0;
-  list-style-type: none; 
+  /* list-style-type: none;  */
 }
 
 h1, h2, h3, p {
