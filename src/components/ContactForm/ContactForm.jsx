@@ -54,7 +54,7 @@ class ContactForm extends Component {
         <StyledForm>
           <Label htmlFor={this.nameInputId}>Name</Label>
           <Input id={this.nameInputId} type="text" name="name" />
-          <ErrorMessage name="name" component="div"></ErrorMessage>
+          <ErrorMessage name="name" component="div" />
 
           <Label htmlFor={this.numberInputId}>Number</Label>
           <Input id={this.numberInputId} type="tel" name="number" />
