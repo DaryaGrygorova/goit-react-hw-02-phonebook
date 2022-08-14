@@ -6,6 +6,7 @@ import Filter from './Filter';
 import ContactForm from './ContactForm';
 import Notification from './Notification';
 import ContactList from './ContactList';
+import Section from './Section';
 
 export class App extends Component {
   state = {
@@ -19,7 +20,20 @@ export class App extends Component {
   };
 
   formSubmitHandler = data => {
-    this.setState(prevState => ({ contacts: [...prevState.contacts, data] }));
+    const { contacts } = this.state;
+    const normalizedName = data.name.toLowerCase();
+
+    contacts.find(({ name }) => name.toLowerCase().includes(normalizedName))
+      ? alert(`${data.name} is already in contacts.`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, data],
+        }));
+  };
+
+  deleteContact = deleteId => {
+    const { contacts } = this.state;
+    const newContacts = contacts.filter(({ id }) => id !== deleteId);
+    this.setState({ contacts: [...newContacts] });
   };
 
   onChangeFilter = e => {
@@ -42,17 +56,31 @@ export class App extends Component {
     return (
       <Box>
         <h1>Phonebook</h1>
-        <ContactForm formSubmitHandler={this.formSubmitHandler} />
 
-        <h2>Contacts</h2>
-        {this.state.contacts.length ? (
-          <>
-            <Filter value={filter} onChangeFilter={this.onChangeFilter} />
-            <ContactList contacts={filteredContacts} />
-          </>
-        ) : (
-          <Notification message="There are no contacts." />
-        )}
+        <Section>
+          <ContactForm formSubmitHandler={this.formSubmitHandler} />
+        </Section>
+
+        <Section title="Contacts">
+          {this.state.contacts.length ? (
+            <Box
+              display="flex"
+              flexDirection="column"
+              gridGap="10px"
+              padding="0"
+              margin="0 auto"
+              maxWidth="650px"
+            >
+              <Filter value={filter} onChangeFilter={this.onChangeFilter} />
+              <ContactList
+                contacts={filteredContacts}
+                onDeleteClick={this.deleteContact}
+              />
+            </Box>
+          ) : (
+            <Notification message="There are no contacts." />
+          )}
+        </Section>
         <GlobalStyle />
       </Box>
     );

@@ -3,21 +3,29 @@ import 'modern-normalize';
 
 export const GlobalStyle = createGlobalStyle`
 body {
-  margin: 0;
-  padding: 20px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 24px;
-  color: #010101;}
+  margin: ${p=> p.theme.space[0]}px;
+  padding: ${p=> p.theme.space[5]}px;
+  font-family:  ${p=> p.theme.fonts.body};
+  font-size: ${p=> p.theme.fontSizes.m};
+  color: ${p => p.theme.colors.text};
+  background-color: ${p => p.theme.colors.background};
+}
 
 ul {
-  padding: 0;
-  margin: 0;
+  padding: ${p=> p.theme.space[0]}px;
+  margin: ${p=> p.theme.space[0]}px;
   /* list-style-type: none;  */
 }
 
 h1, h2, h3, p {
-  padding: 0;
-  margin: 0;
+  padding: ${p=> p.theme.space[0]}px;
+  margin: ${p=> p.theme.space[0]}px;
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 25px;
 }
 
 img {
@@ -28,7 +36,7 @@ img {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    monospace, 'Roboto';
 }
 
 `;
